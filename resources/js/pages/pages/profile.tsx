@@ -31,6 +31,8 @@ interface Props {
 }
 
 export default function ProfilePage({ page }: Props) {
+    // Note: No 'Latest News' section exists in this Profile page component.
+    // The 'Latest News' section is only present in the Home page component.
     const stats = [
         { label: 'Years of Experience', value: '20+', icon: Award },
         { label: 'Projects Completed', value: '150+', icon: Target },
