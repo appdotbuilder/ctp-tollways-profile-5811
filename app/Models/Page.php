@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $title
  * @property string $slug
  * @property string $content
+ * @property array|null $sections
  * @property string|null $meta_description
  * @property string|null $featured_image
  * @property bool $is_published
@@ -48,6 +49,7 @@ class Page extends Model
         'title',
         'slug',
         'content',
+        'sections',
         'meta_description',
         'featured_image',
         'is_published',
@@ -59,6 +61,7 @@ class Page extends Model
      * @var array<string, string>
      */
     protected $casts = [
+        'sections' => 'array',
         'is_published' => 'boolean',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
