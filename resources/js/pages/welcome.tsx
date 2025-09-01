@@ -57,12 +57,18 @@ export default function Welcome() {
                         )}
                         
                         {auth.user && (
-                            <div className="flex justify-center mt-8">
+                            <div className="flex justify-center space-x-4 mt-8">
                                 <Link
                                     href="/dashboard"
                                     className="text-white bg-white bg-opacity-20 px-6 py-2 rounded-lg hover:bg-opacity-30 transition-colors"
                                 >
-                                    Go to Dashboard
+                                    🏠 Dashboard
+                                </Link>
+                                <Link
+                                    href="/admin/pages"
+                                    className="text-white border border-white border-opacity-50 px-6 py-2 rounded-lg hover:border-opacity-100 transition-colors"
+                                >
+                                    📄 Manage Pages
                                 </Link>
                             </div>
                         )}

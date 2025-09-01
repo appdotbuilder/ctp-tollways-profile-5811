@@ -41,3 +41,15 @@ export interface User {
     updated_at: string;
     [key: string]: unknown; // This allows for additional properties...
 }
+
+export interface Page {
+    id: number;
+    title: string;
+    slug: string;
+    content: string | null;
+    meta_description: string | null;
+    featured_image: string | null;
+    is_published: boolean;
+    created_at: string;
+    updated_at: string;
+}

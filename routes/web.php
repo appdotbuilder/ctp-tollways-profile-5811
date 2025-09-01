@@ -5,6 +5,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\Admin\PageController as AdminPageController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -50,6 +51,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
+    
+    // Admin routes
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Route::resource('pages', AdminPageController::class);
+    });
 });
 
 require __DIR__.'/settings.php';
