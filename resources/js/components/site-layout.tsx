@@ -1,6 +1,8 @@
 import React from 'react';
 import { Head, Link, usePage } from '@inertiajs/react';
 import { Facebook, Instagram, Twitter, Youtube, Mail, Phone, MapPin } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { SharedData } from '@/types';
 
 interface Props {
     children: React.ReactNode;
@@ -9,7 +11,9 @@ interface Props {
 }
 
 export function SiteLayout({ children, title = "PT CTP Tollways", description = "Leading tollway construction company in Indonesia" }: Props) {
-    const { url } = usePage();
+    const page = usePage<SharedData>();
+    const { auth } = page.props;
+    const url = page.url;
     
     const navigation = [
         { name: 'Home', href: '/' },
@@ -53,28 +57,62 @@ export function SiteLayout({ children, title = "PT CTP Tollways", description = 
                             </Link>
 
                             {/* Desktop Navigation */}
-                            <nav className="hidden md:flex space-x-8">
-                                {navigation.map((item) => (
-                                    <Link
-                                        key={item.name}
-                                        href={item.href}
-                                        className={`text-sm font-medium transition-colors duration-200 ${
-                                            url === item.href || (item.href !== '/' && url.startsWith(item.href))
-                                                ? 'text-blue-600 border-b-2 border-blue-600 pb-1'
-                                                : 'text-gray-700 hover:text-blue-600'
-                                        }`}
-                                    >
-                                        {item.name}
-                                    </Link>
-                                ))}
-                            </nav>
+                            <div className="hidden md:flex items-center space-x-8">
+                                <nav className="flex space-x-8">
+                                    {navigation.map((item) => (
+                                        <Link
+                                            key={item.name}
+                                            href={item.href}
+                                            className={`text-sm font-medium transition-colors duration-200 ${
+                                                url === item.href || (item.href !== '/' && url.startsWith(item.href))
+                                                    ? 'text-blue-600 border-b-2 border-blue-600 pb-1'
+                                                    : 'text-gray-700 hover:text-blue-600'
+                                            }`}
+                                        >
+                                            {item.name}
+                                        </Link>
+                                    ))}
+                                </nav>
+                                
+                                {/* Auth buttons - only show when not authenticated */}
+                                {!auth.user && (
+                                    <div className="flex items-center space-x-3 ml-6">
+                                        <Link href={route('login')}>
+                                            <Button variant="ghost" size="sm">
+                                                Login
+                                            </Button>
+                                        </Link>
+                                        <Link href={route('register')}>
+                                            <Button size="sm">
+                                                Register
+                                            </Button>
+                                        </Link>
+                                    </div>
+                                )}
+                            </div>
 
-                            {/* Mobile menu button */}
-                            <button className="md:hidden p-2">
-                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                                </svg>
-                            </button>
+                            {/* Mobile Navigation */}
+                            <div className="md:hidden flex items-center space-x-2">
+                                {!auth.user && (
+                                    <>
+                                        <Link href={route('login')}>
+                                            <Button variant="ghost" size="sm">
+                                                Login
+                                            </Button>
+                                        </Link>
+                                        <Link href={route('register')}>
+                                            <Button size="sm">
+                                                Register
+                                            </Button>
+                                        </Link>
+                                    </>
+                                )}
+                                <button className="p-2">
+                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </header>
